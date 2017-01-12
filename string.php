@@ -16,7 +16,7 @@
 
 //$arr=array('z','h','u');
 //$str="";
-//for($i=0;$i=count($arr);$i++){
+//for($i=0;$i=count($arr)OO;$i++){
 //$str.=$arr[$i];
 //}
 //
