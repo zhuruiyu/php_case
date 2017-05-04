@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">click</button>
+<table id="tbl">
+    <thead>
+    <tr>
+
+        <td>用户名</td>
+        <td>年龄</td>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+
+    </tbody>
+</table>
+<script>
+    var oBtn = document.getElementById('btn');
+    var oTbody = document.getElementById('tbody');
+
+    oBtn.onclick = function () {
+
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open('GET','server.php',true);
+        xmlHttp.send();
+
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                 var data = xmlHttp.responseText;
+                 data = JSON.parse(data);
+                  for(var i=0;i<data.length;i++){
+                      var name = data[i].name;
+                      var age = data[i].age;
+                       var oTBody = document.getElementsByTagName('body')
+
+                      var oNameTd = document.createElement('td');
+                      oNameTd.innerHTML = name;
+                      var oAgeTd = document.createElement('td');
+                      oAgeTd.innerHTML = age;
+                      var oTr = document.createElement('tr');
+                      oTr.appendChild(oNameTd);
+                      oTr.appendChild(oAgeTd);
+                      oTbody.appendChild(oTr)
+                  }
+
+
+                    };
+
+        };
+
+    };
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

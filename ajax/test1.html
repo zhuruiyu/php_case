@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">click</button>
+
+<script>
+    var oBtn = document.getElementById('btn');
+
+    oBtn.onclick = function () {
+        ajax({
+            type: 'GET',
+            url:'index.php',
+            data:{name:'lisi',age:23},
+            success: function (data){
+                console.log(data);
+            },
+            dataType:'text'
+        });
+    };
+
+    function ajax(params) {
+         var settings = {
+             type:'GET',
+             dataType:'text'
+         };
+        (function (target,obj) {
+            for(var p in obj){
+                target[p] = obj[p];
+            }
+        })(settings,params);
+
+        var xmlHttp;
+        if(window.XMLHttpRequest){
+            xmlHttp = new XMLHttpRequest;
+        }else{
+            xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        var strData = '';
+        for(var p in settings.data){
+            strData += p + '=' +settings.data[p] + '&';
+        }
+        strData = strData.substring((0,strData.length-1));
+    if(settings.type.toUpperCase() == 'GET'){
+        var url = settings.url+'?'+ strData;
+        xmlHttp.open(settings.type,url,true);
+        xmlHttp.send();
+    }else{
+        xmlHttp.open(settings.type,url,true);
+        xmlHttp.setRequestHeader("content-type","application/x-www-form-urlencoded")
+        xmlHttp.send(strData);
+    };
+
+    xmlHttp.onreadystatechange = function () {
+        if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+
+         var returnData;
+         if(settings.dataType == 'text'){
+             returnData = xmlHttp.responseText;
+         }else if(settings.dataType == 'json'){
+             returnData = JSON.parse(xmlHttp.responseText);
+         }else if(settings.dataType == 'xml'){
+             returnData = xmlHttp.responseXML;
+         }
+
+        settings.success && settings.success(returnData);
+
+        }
+    }
+    }
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

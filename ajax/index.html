@@ -5,14 +5,30 @@
     <title>Title </title>
 </head>
 <body>
+<button id="btn">click</button>
 <script>
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange=function () {
-        console.log(xhr.readyState);
-    }
+    var oBtn = document.getElementById('btn');
+    oBtn.onclick = function () {
 
-    xhr.open("get","./index.php");
-    xhr.send(null);
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open('POST','index.php',true);
+        xmlHttp.setRequestHeader("content-type","application/x-www-form-urlencoded")
+        xmlHttp.send('name=zhangsan&&age=18');
+        xmlHttp.onreadystatechange = function () {
+            if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+                if(xmlHttp.responseText == 'success'){
+                    alert('成功');
+                }else{
+                    alert('失败');
+                }
+            }
+
+        };
+    };
+    
+    
+    
+
 </script>
 </body>
 </html>
