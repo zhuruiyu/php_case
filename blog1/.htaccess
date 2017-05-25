@@ -1,0 +1,10 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^(blog.)?zhuruiyu.cn$
+RewriteCond %{REQUEST_URI} !^/blog/ 
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteRule ^(.*)$ /cms/$1
+RewriteCond %{HTTP_HOST} ^(blog.)?zhuruiyu.cn$
+RewriteRule ^(/)?$ blog/index.php [L] 
+

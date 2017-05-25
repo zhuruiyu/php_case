@@ -1,0 +1,14 @@
+#RewriteCond %{REQUEST_FILENAME -d [OR] #如果请求的路径是文件夹 或者
+#RewriteCond %{REQUEST_FILENAME -f  #是文件
+#RewriteRule . - [L] #直接显示，不重写
+
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^(blog.)?zhuruiyu.cn$
+RewriteCond %{REQUEST_URI} !^/blog/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /cms/$1
+RewriteCond %{HTTP_HOST} ^(blog.)?zhuruiyu.cn$
+RewriteRule ^(/)?$ blog/index.php [L]
+
